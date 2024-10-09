@@ -1,17 +1,10 @@
 package com.daemon.ui.components
 
-import android.widget.CheckBox
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
-import androidx.compose.material3.Checkbox
-import androidx.compose.material3.CheckboxColors
-import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,12 +17,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.daemon.ui.theme.PrimaryColor
-import com.daemon.ui.theme.VeryLightGrey
+import com.daemon.ui.theme.JelloBlueColor
 import com.daemon.ui.theme.VividMagenta
 
 @Composable
@@ -176,7 +167,7 @@ fun JelloTextViewRow(
             style = TextStyle(
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Normal,
-                color = PrimaryColor
+                color = JelloBlueColor
             )
         )
     }
