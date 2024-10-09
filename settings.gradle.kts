@@ -17,3 +17,4 @@ rootProject.name = "MyJello"
 include(":app")
 include(":feature:auth")
 include(":core:ui")
+include(":feature:home")

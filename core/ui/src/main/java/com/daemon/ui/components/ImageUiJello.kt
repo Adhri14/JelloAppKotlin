@@ -22,7 +22,7 @@ fun JelloImageViewClick(
 ) {
     IconButton(
         onClick = {
-            onClick.invoke()
+            onClick()
         }
     ) {
         Icon(

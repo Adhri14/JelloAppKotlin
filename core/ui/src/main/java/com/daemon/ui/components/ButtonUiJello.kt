@@ -46,7 +46,7 @@ fun ButtonFacebook(
     modifier: Modifier = Modifier
 ) {
     BaseButtonWithIcon(
-        label = "Sign Up",
+        label = "Facebook",
         enabled = true,
         colors = ButtonDefaults.buttonColors(
             containerColor = JelloBlueColor,
@@ -68,7 +68,7 @@ fun ButtonGoogle(
     modifier: Modifier = Modifier
 ) {
     BaseButtonWithIcon(
-        label = "Sign Up",
+        label = "Google",
         enabled = true,
         colors = ButtonDefaults.buttonColors(
             containerColor = JellowRedColor,

@@ -2,12 +2,15 @@ package com.daemon.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
@@ -26,23 +29,29 @@ fun JelloEditText(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
 ) {
-    BasicTextField(
-        value = value,
-        onValueChange = {
-            onTyping.invoke(it)
-        },
-        visualTransformation = visualTransformation,
-        keyboardOptions = keyboardOptions,
+    Box (
         modifier = Modifier.fillMaxWidth()
             .padding(horizontal = 16.dp)
             .border(width = 1.dp, color = VeryLightGrey, shape = RoundedCornerShape(10.dp))
-            .padding(8.dp)
+            .height(56.dp)
             .background(Color.White),
-        textStyle = TextStyle(
-            fontSize = 14.sp,
-            color = Color.Black,
+        contentAlignment = Alignment.Center
+    ) {
+        BasicTextField(
+            value = value,
+            onValueChange = {
+                onTyping.invoke(it)
+            },
+            visualTransformation = visualTransformation,
+            keyboardOptions = keyboardOptions,
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp),
+            textStyle = TextStyle(
+                fontSize = 14.sp,
+                color = Color.Black,
+            ),
+            singleLine = true,
         )
-    )
+    }
 }
 
 @Preview(showBackground = true)

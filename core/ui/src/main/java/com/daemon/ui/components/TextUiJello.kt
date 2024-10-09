@@ -109,7 +109,7 @@ fun JelloTextRegularWithClickPreview() {
 @Composable
 fun JelloTextRegular(
     text: String = "Email",
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier.padding(16.dp),
     color: Color = Color.Black,
 ) {
     Text(

@@ -13,18 +13,24 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun ButtonSosmed() {
+fun ButtonSosmed(
+    onClickFacebook: () -> Unit = {},
+    onClickGoogle: () -> Unit = {},
+) {
     Row (
         modifier = Modifier.fillMaxWidth().padding(16.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        ButtonFacebook(
-            modifier = Modifier.height(56.dp).weight(1f)
+        ButtonGoogle(
+            modifier = Modifier.height(56.dp).weight(1f),
+            onClick = onClickGoogle
         )
         Spacer(modifier = Modifier.width(10.dp))
-        ButtonGoogle(
-            modifier = Modifier.height(56.dp).weight(1f)
+        ButtonFacebook(
+            modifier = Modifier.height(56.dp).weight(1f),
+            onClick = onClickFacebook,
         )
+
     }
 }
 
