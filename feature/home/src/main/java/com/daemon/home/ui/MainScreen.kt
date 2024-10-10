@@ -23,6 +23,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.daemon.home.ui.account.AccountScreen
 import com.daemon.home.ui.home.HomeScreen
 import com.daemon.home.ui.order.OrderScreen
 import com.daemon.home.ui.product.ProductScreen

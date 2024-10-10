@@ -55,7 +55,8 @@ fun JelloImageViewClickPreview() {
 @Composable
 fun JelloImageViewPhotoRoundedURl(
     url: String,
-    description: String
+    description: String,
+    modifier: Modifier = Modifier.size(100.dp).clip(shape = RoundedCornerShape(8.dp))
 ) {
     val painter =  rememberAsyncImagePainter(
         ImageRequest.Builder(LocalContext.current).data(data = url).apply(block = fun ImageRequest.Builder.() {
@@ -73,7 +74,7 @@ fun JelloImageViewPhotoRoundedURl(
         Image(
             painter = painter,
             contentDescription = description,
-            modifier = Modifier.size(100.dp).clip(shape = RoundedCornerShape(8.dp))
+            modifier = modifier
         )
     }
 }
