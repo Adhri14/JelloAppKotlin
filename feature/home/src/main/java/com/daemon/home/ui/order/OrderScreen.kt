@@ -1,16 +1,20 @@
-package com.daemon.home.ui.product
+package com.daemon.home.ui.order
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Search
@@ -21,6 +25,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
@@ -33,7 +38,6 @@ import com.daemon.home.R
 import com.daemon.ui.components.JelloImageViewClick
 import com.daemon.ui.components.JelloImageViewPhotoRoundedURl
 import com.daemon.ui.components.JelloTextRegular
-import com.daemon.ui.components.RatingUiJello
 import com.daemon.ui.theme.JellowOrangeColor
 import com.daemon.ui.theme.LightGrayBlue
 import com.daemon.ui.theme.LigthGray
@@ -41,7 +45,7 @@ import com.daemon.ui.theme.SoftLightGray
 import com.daemon.ui.theme.VeryLightGrey
 
 @Composable
-fun ProductScreen() {
+fun OrderScreen() {
     val items = listOf(
         ProductItem(
             title = "ULTRABOOST 20 SHOES\n" +
@@ -155,7 +159,7 @@ fun ProductScreen() {
                         color = Color.Black.copy(alpha = 0.5f)
                     )
                     JelloImageViewClick(
-                        imageVector = ImageVector.vectorResource(id = R.drawable.ic_menu),
+                        imageVector = ImageVector.vectorResource(id = R.drawable.ic_grid),
                         color = Color.Black.copy(alpha = 0.5f)
                     )
                 }
@@ -177,27 +181,30 @@ data class ProductItem (
 fun ItemProductList(
     items: List<ProductItem>,
 ) {
-    LazyColumn (
+    LazyVerticalGrid (
+        columns = GridCells.Fixed(2),
         modifier = Modifier.fillMaxSize()
             .background(Color.White)
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(20.dp)
+            .padding(6.dp),
     ) {
         items(items) { item ->
-            Column (
+            Card (
                 modifier = Modifier.fillMaxWidth()
+                    .padding(10.dp)
                     .clickable {
 
                     },
+                colors = CardDefaults.cardColors(
+                    containerColor = Color.White
+                )
             ) {
-                Row (
-                    verticalAlignment = Alignment.CenterVertically
+                Column(
+                    modifier = Modifier.fillMaxWidth()
                 ) {
-                    Card(
-                        modifier = Modifier.size(100.dp),
-                        colors = CardDefaults.cardColors(
-                            containerColor = LightGrayBlue
-                        )
+                    Box(
+                        modifier = Modifier.fillMaxWidth()
+                            .clip(shape = RoundedCornerShape(topStart = 10.dp, topEnd = 10.dp))
+                            .background(LightGrayBlue),
                     ) {
                         JelloImageViewPhotoRoundedURl(
                             url = item.image,
@@ -205,7 +212,7 @@ fun ItemProductList(
                         )
                     }
                     Column (
-                        modifier = Modifier.padding(start = 16.dp)
+                        modifier = Modifier.padding(8.dp)
                     ) {
                         Text(
                             text = item.title,
@@ -216,6 +223,7 @@ fun ItemProductList(
                             ),
                             modifier = Modifier.padding(bottom = 7.dp)
                         )
+                        Spacer(modifier = Modifier.height(8.dp))
                         Text(
                             text = "$${item.price}",
                             style = TextStyle(
@@ -225,7 +233,6 @@ fun ItemProductList(
                             ),
                             modifier = Modifier.padding(bottom = 18.dp)
                         )
-                        RatingUiJello(rating = item.rating)
                     }
                 }
             }
@@ -235,6 +242,6 @@ fun ItemProductList(
 
 @Preview
 @Composable
-fun ProductScreenPreview() {
-    ProductScreen()
+fun OrderScreenPreview() {
+    OrderScreen()
 }
