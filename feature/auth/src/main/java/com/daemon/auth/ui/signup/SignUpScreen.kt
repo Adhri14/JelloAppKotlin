@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.sharp.ArrowBack
 import androidx.compose.runtime.Composable
@@ -18,13 +17,11 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.daemon.ui.components.ButtonPrimary
-import com.daemon.ui.components.ButtonSosmed
 import com.daemon.ui.components.JelloEditText
 import com.daemon.ui.components.JelloImageViewClick
 import com.daemon.ui.components.JelloTextHeader
 import com.daemon.ui.components.JelloTextRegular
 import com.daemon.ui.components.JelloTextRegularWithClick
-import com.daemon.ui.components.JelloTextViewRow
 
 @Composable
 fun SignUpScreen(

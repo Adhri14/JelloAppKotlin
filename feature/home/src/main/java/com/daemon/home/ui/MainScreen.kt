@@ -1,121 +1,133 @@
 package com.daemon.home.ui
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.sharp.ArrowBack
+import androidx.compose.material.BottomNavigation
+import androidx.compose.material.BottomNavigationItem
+import androidx.compose.material.Icon
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.daemon.auth.MainActivity
-import com.daemon.ui.components.ButtonPrimary
-import com.daemon.ui.components.ButtonSosmed
-import com.daemon.ui.components.JelloEditText
-import com.daemon.ui.components.JelloEditTextPreview
-import com.daemon.ui.components.JelloImageViewClick
-import com.daemon.ui.components.JelloTextHeader
-import com.daemon.ui.components.JelloTextRegular
-import com.daemon.ui.components.JelloTextRegularWithClick
-import com.daemon.ui.components.JelloTextViewRow
+import com.daemon.home.ui.home.HomeScreen
+import com.daemon.home.ui.product.ProductScreen
+import com.daemon.ui.theme.TintColor
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun MainScreen(
+
+) {
+    val navController = rememberNavController()
+    Scaffold (
+        bottomBar = {
+            bottomNavigationBar(navController)
+        }
+    ) { innerPadding ->
+        NavigationGraph(
+            navController = navController,
+            modifier = Modifier.padding(innerPadding)
+        )
+    }
+}
 
 @Composable
-fun SignInScreen(
-    navController: NavController = rememberNavController()
-) {
-    var emailValue by remember { mutableStateOf("testing") }
-    var passwordValue by remember { mutableStateOf("") }
+fun bottomNavigationBar(navController: NavController) {
+    val items = listOf(
+        BottomNavItem.Home,
+        BottomNavItem.Product,
+        BottomNavItem.Order,
+        BottomNavItem.Account
+    )
 
-    val scrollViewState = rememberScrollState()
-
-    Column (
-        modifier = Modifier.fillMaxSize()
-            .background(color = Color.White)
-            .verticalScroll(scrollViewState)
+    BottomNavigation(
+        backgroundColor = Color.White,
+        contentColor = Color.Black,
     ) {
-        JelloImageViewClick(
-            onClick = {
-                navController.popBackStack()
-            },
-            imageVector = Icons.Sharp.ArrowBack,
-            color = Color.Black
-        )
+        val navBackState by navController.currentBackStackEntryAsState()
+        val currentRoute = navBackState?.destination?.route
 
-        Spacer(modifier = Modifier.height(30.dp))
+        items.forEach { item ->
+            BottomNavigationItem(
+                icon = {
+                    Icon(
+                        imageVector = item.icon,
+                        contentDescription = item.title,
+                        tint = TintColor
+                    )
+                },
+                label = {
+                    Text(
+                        text = item.title,
+                        style = TextStyle(
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.Normal,
+                            lineHeight = 12.sp,
+                            textAlign = TextAlign.Center,
+                            color = TintColor,
+                        )
+                    )
+                },
+                selected = currentRoute == item.route,
+                onClick = {
+                    navController.navigate(item.route) {
+                        popUpTo(navController.graph.startDestinationId)
+                        launchSingleTop = true
+                    }
+                },
+                alwaysShowLabel = true,
+            )
+        }
+    }
+}
 
-        JelloTextHeader(
-            text = "Welcome to Login",
-            modifier = Modifier.padding(horizontal = 16.dp)
-        )
-
-        Spacer(modifier = Modifier.height(10.dp))
-
-        JelloTextRegularWithClick(
-            text = "Please fill E-mail & password to login your app account. ",
-            textClick = "Sign Up",
-            onClick = {
-                navController.navigate(route = "test")
-            }
-        )
-
-        Spacer(modifier = Modifier.height(25.dp))
-
-        JelloTextRegular(
-            text = "E-mail",
-            modifier = Modifier.padding(horizontal = 16.dp)
-        )
-        Spacer(modifier = Modifier.height(10.dp))
-        JelloEditText(
-            value = emailValue,
-            onTyping = {
-                emailValue = it
-            }
-        )
-
-        Spacer(modifier = Modifier.height(20.dp))
-
-        JelloTextRegular(
-            text = "Password",
-            modifier = Modifier.padding(horizontal = 16.dp)
-        )
-        Spacer(modifier = Modifier.height(10.dp))
-        JelloEditText(
-            value = passwordValue,
-            onTyping = {
-                passwordValue = it
-            },
-            visualTransformation = PasswordVisualTransformation()
-        )
-
-        Spacer(modifier = Modifier.height(30.dp))
-        JelloTextViewRow()
-
-        Spacer(modifier = Modifier.height(30.dp))
-        ButtonPrimary()
-
-        Spacer(modifier = Modifier.height(10.dp))
-        ButtonSosmed()
+@Composable
+fun NavigationGraph(
+    navController: NavHostController,
+    modifier: Modifier = Modifier
+) {
+    NavHost(
+        navController = navController,
+        startDestination = BottomNavItem.Home.route,
+        modifier = modifier
+    ) {
+        composable(BottomNavItem.Home.route) {
+            HomeScreen()
+        }
+        composable(BottomNavItem.Product.route) {
+            ProductScreen()
+        }
+        composable(BottomNavItem.Order.route) {
+            OrderScreen()
+        }
+        composable(BottomNavItem.Account.route) {
+            AccountScreen()
+        }
     }
 }
 
 @Preview(showBackground = true, device = Devices.PIXEL)
 @Composable
-fun SignInScreenPreview() {
-    SignInScreen()
+fun MainScreenPreview() {
+    MainScreen()
 }
+
+
+
+
+
+
